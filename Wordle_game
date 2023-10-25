@@ -10,38 +10,38 @@ def give_instructions():
     Best of luck''')
 
 
-words =["this", "five", "help", "lake", "pink", "cats"]
 
-
-hidden_word = random.choice(words)
-
-attempt = 5
-
-def check_word(guess):
-        if hidden_word == guess:
-            print("congrats!! You did it.")
-        else:
-            result = ""
-            for i,j in zip(guess, hidden_word):
-                if i == j:
-                    result = result + "Y"
-                elif i in hidden_word:
-                    result = result + "X"
-                else:
-                    result = result + "/"
-            print(result)
+def check_word(hidden_word, guess):
+    if hidden_word == guess:
+        print("congrats!! You did it.")
+        return True
+    else:
+        result = ''
+        for i,j in zip(guess, hidden_word):
+            if i == j:
+                result = result + "Y"
+            elif i in hidden_word:
+                result = result + "X"
+            else:
+                result = result + "/"
+        print(result)
+        return False
 
 def main():
-    attempt=5
+    words =["this", "five", "help", "lake", "pink", "cats", "show", "risk", "plan", "asks", "high", "mask"]
+    hidden_word = random.choice(words)
+    attempt = 5
+
     give_instructions()
+
     while attempt>0:
-          guess = input("Enter four letter word: ")
-          if check_word(guess):
+          guess = input("\nEnter four letter word: ").lower()
+          if check_word(hidden_word, guess):
             break
           else:
               attempt -= 1 #attempt = attmept - 1
               print(f"you have {attempt} attempts left.")
     else:
-        print("Game Over")
+        print("Game Over\nThe word was {hidden_word}")
 
 main()
